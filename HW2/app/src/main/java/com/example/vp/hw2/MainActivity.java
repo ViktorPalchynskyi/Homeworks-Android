@@ -25,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
 
     Animation in, out, in2, out2;
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("Save Count Left", counter.getLeftCounter());
+        outState.putInt("Save Count Right", counter.getRightCounter());
+        outState.putString("Left String" ,String.valueOf(counter.getLeftCounter()));
+        outState.putString("Right String" ,String.valueOf(counter.getRightCounter()));
+        outState.putInt("SaveImage",images[i] );
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         imageSwitcher = (ImageSwitcher) findViewById(R.id.switcher);
 
-        text_right = (TextView)findViewById(R.id.text_right);
-        text_left = (TextView)findViewById(R.id.text_left);
-
+        text_right = (TextView) findViewById(R.id.text_right);
+        text_left = (TextView) findViewById(R.id.text_left);
 
 
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
@@ -69,13 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 imageSwitcher.setOutAnimation(out2);
                 counter.CountLeft();
                 text_right.setText(String.valueOf(counter.getLeftCounter()));
-                if (i < images.length -1) {
+                if (i < images.length - 1) {
                     i++;
-                    imageSwitcher.setImageResource(images[i]);}
-                    else if (i >= 4) {
-                        i = 0;
-                        imageSwitcher.setImageResource(images[i]);
-                    }
+                    imageSwitcher.setImageResource(images[i]);
+                } else if (i >= 4) {
+                    i = 0;
+                    imageSwitcher.setImageResource(images[i]);
+                }
 
 
             }
@@ -103,6 +113,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState != null) {
+            counter.setRightCounter(savedInstanceState.getInt("Save Count Right"));
+            counter.setLeftCounter(savedInstanceState.getInt("Save Count Left"));
+            text_left.setText(savedInstanceState.getString("Right String"));
+            text_right.setText(savedInstanceState.getString("Left String"));
+            imageSwitcher.setImageResource(savedInstanceState.getInt("SaveImage"));
 
+        }
     }
 }
