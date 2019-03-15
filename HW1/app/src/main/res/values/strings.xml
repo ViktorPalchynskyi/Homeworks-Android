@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HW1</string>
+    <string name="some_stroke">Я стал новым пиратом</string>
+    <string name="button">Нажми на меня</string>
+</resources>
