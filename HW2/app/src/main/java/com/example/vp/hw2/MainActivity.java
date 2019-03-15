@@ -10,13 +10,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    Counter counter = new Counter();
     ImageButton b_next, b_prev;
-
+    TextView text_right, text_left;
     ImageSwitcher imageSwitcher;
 
     Integer[] images = {R.drawable.art_1, R.drawable.art_2, R.drawable.art_3, R.drawable.art_4, R.drawable.art_5};
@@ -31,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         imageSwitcher = (ImageSwitcher) findViewById(R.id.switcher);
+
+        text_right = (TextView)findViewById(R.id.text_right);
+        text_left = (TextView)findViewById(R.id.text_left);
+
+
 
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -61,11 +67,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 imageSwitcher.setInAnimation(in2);
                 imageSwitcher.setOutAnimation(out2);
+                counter.CountLeft();
+                text_right.setText(String.valueOf(counter.getLeftCounter()));
                 if (i < images.length -1) {
                     i++;
-                    imageSwitcher.setImageResource(images[i]);
+                    imageSwitcher.setImageResource(images[i]);}
+                    else if (i >= 4) {
+                        i = 0;
+                        imageSwitcher.setImageResource(images[i]);
+                    }
 
-                }
 
             }
         });
@@ -76,10 +87,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 imageSwitcher.setInAnimation(in);
                 imageSwitcher.setOutAnimation(out);
+                counter.CountRight();
+                text_left.setText(String.valueOf(counter.getRightCounter()));
+
                 if (i > 0) {
                     i--;
+
+                    imageSwitcher.setImageResource(images[i]);
+                } else if (i == 0) {
+                    i = 4;
                     imageSwitcher.setImageResource(images[i]);
                 }
+
+
             }
         });
 

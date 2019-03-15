@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HW2</string>
+    <string name="left">Нажатий на лево</string>
+    <string name="right">Нажатий на право</string>
 </resources>
